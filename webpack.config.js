@@ -6,6 +6,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts'],
   },
+  devtool: 'eval-source-map',
   module: {
     rules: [
       { test: /\.ts$/, exclude: /node_modules/, loader: 'babel-loader' },
