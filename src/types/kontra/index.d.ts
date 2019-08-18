@@ -64,6 +64,7 @@ interface GameLoopBuilder {
 interface GameLoop {
   render(): void;
   update(dt?: number): void;
+  start(): void;
 }
 
 interface Keys {

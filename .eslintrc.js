@@ -10,5 +10,8 @@ module.exports = {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
+  rules: {
+    'class-methods-use-this': 0,
+  },
   parser: "@typescript-eslint/parser",
 };
