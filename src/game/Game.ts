@@ -17,6 +17,8 @@ export default class Game {
 
   private viewport:Viewport
 
+  private vehicle:Vehicle;
+
   constructor() {
     const { canvas, context } = init('game_canvas');
     this.canvas = canvas;
@@ -31,7 +33,7 @@ export default class Game {
     this.viewport = new Viewport(this.context);
 
     // init loop
-    const { viewport, actors } = this;
+    const { viewport, vehicle, actors } = this;
     this.gameLoop = GameLoop({
       update() {
         context.canvas.width = document.documentElement.clientWidth;
@@ -39,13 +41,19 @@ export default class Game {
 
         if (keyPressed('left')) {
           viewport.x -= 2;
+          vehicle.updateRotation(-1);
         } else if (keyPressed('right')) {
           viewport.x += 2;
+          vehicle.updateRotation(+1);
         }
         if (keyPressed('up')) {
           viewport.y -= 2;
+          vehicle.accelerate(1);
         } else if (keyPressed('down')) {
           viewport.y += 2;
+          vehicle.accelerate(-1);
+        } else {
+          vehicle.accelerate(0);
         }
         actors.forEach((a) => a.update());
       },
@@ -67,13 +75,13 @@ export default class Game {
   initActors() {
     const world = new World();
     this.actors.push(world);
-    const vehicle = new Vehicle({
-      x: 250,
-      y: 250,
-      width: 14 * 4,
-      height: 24 * 4,
+    this.vehicle = new Vehicle({
+      x: this.context.canvas.width / 2,
+      y: this.context.canvas.height / 2,
+      width: 24 * 4,
+      height: 14 * 4,
       imgSrc: 'assets/bus.png',
     });
-    this.actors.push(vehicle);
+    this.actors.push(this.vehicle);
   }
 }
