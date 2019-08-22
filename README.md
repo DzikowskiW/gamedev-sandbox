@@ -1,1 +1,1 @@
-JS13k entry - work in progress
+JS Game dev sandbox
